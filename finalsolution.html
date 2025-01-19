@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Photo Gallery</title>
+    <style>
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #gallery img {
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            transition: transform 0.3s ease, border 0.3s ease;
+        }
+
+        #gallery img:focus {
+            outline: none; /* Remove default focus outline */
+        }
+
+        #gallery img:hover {
+            transform: scale(1.1); /* Zoom effect on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Interactive Photo Gallery</h1>
+
+    <div id="gallery">
+        <img src="https://via.placeholder.com/150/FF0000/FFFFFF?text=Image+1" alt="Image 1 description" id="img1">
+        <img src="https://via.placeholder.com/150/00FF00/FFFFFF?text=Image+2" alt="Image 2 description" id="img2">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF?text=Image+3" alt="Image 3 description" id="img3">
+        <img src="https://via.placeholder.com/150/FFFF00/FFFFFF?text=Image+4" alt="Image 4 description" id="img4">
+        <img src="https://via.placeholder.com/150/FF00FF/FFFFFF?text=Image+5" alt="Image 5 description" id="img5">
+        <img src="https://via.placeholder.com/150/00FFFF/FFFFFF?text=Image+6" alt="Image 6 description" id="img6">
+    </div>
+
+    <script>
+        // Function to add tabindex attribute to all images
+        function addTabFocus() {
+            const images = document.querySelectorAll("img");
+            images.forEach(function(image, index) {
+                image.setAttribute('tabindex', index + 1); // Assign unique tabindex values
+                console.log(`Tab index set for: ${image.alt}`);
+            });
+        }
+
+        // Event listeners for all images
+        window.onload = function() {
+            console.log("Page is fully loaded!");
+
+            // Add event listeners for mouse and keyboard events
+            const images = document.querySelectorAll("img");
+
+            // Loop through each image and add event listeners
+            images.forEach(function(image) {
+
+                // Mouseover event
+                image.addEventListener("mouseover", function() {
+                    console.log("Mouse is over the image: " + image.alt);
+                    image.style.border = "5px solid red"; // Highlight the image on mouseover
+                });
+
+                // Mouseleave event
+                image.addEventListener("mouseleave", function() {
+                    console.log("Mouse left the image: " + image.alt);
+                    image.style.border = ""; // Reset the border when mouse leaves
+                });
+
+                // Focus event
+                image.addEventListener("focus", function() {
+                    console.log("Image focused: " + image.alt);
+                    image.style.border = "5px solid blue"; // Highlight the image on focus
+                });
+
+                // Blur event
+                image.addEventListener("blur", function() {
+                    console.log("Image lost focus: " + image.alt);
+                    image.style.border = ""; // Reset the border when focus is lost
+                });
+            });
+
+            // Add tabindex attributes
+            addTabFocus();
+        };
+    </script>
+
+</body>
+</html>
